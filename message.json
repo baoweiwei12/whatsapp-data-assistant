@@ -1,0 +1,36 @@
+{
+    "name": "get_group_messages",
+    "description": "Retrieve group messages based on specified filters such as date range, content, sender's phone number, and sender's display name",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "limit": {
+                "type": "integer",
+                "description": "The maximum number of messages to retrieve (default is 20, max to 30)"
+            },
+            "start_timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The start timestamp in the format %Y-%m-%d %H:%M:%S for filtering messages"
+            },
+            "end_timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The end timestamp in the format %Y-%m-%d %H:%M:%S for filtering messages"
+            },
+            "search_content": {
+                "type": "string",
+                "description": "The keyword to search within message content"
+            },
+            "sender_phone_number": {
+                "type": "string",
+                "description": "The phone number of the message sender for filtering messages"
+            },
+            "sender_display_name": {
+                "type": "string",
+                "description": "The display name of the message sender for filtering messages"
+            }
+        }
+    },
+    "required": []
+}
