@@ -6,9 +6,9 @@ from app import config
 
 username = config.SQL_NAME
 password = config.SQL_PSWD
-hostname = config.SQL_HOST
+# hostname = config.SQL_HOST
+hostname = "47.99.70.58"
 database_name = config.SQL_DB_NAME
-
 # 对用户名和密码进行 URL 编码
 encoded_username = quote_plus(username)
 encoded_password = quote_plus(password)

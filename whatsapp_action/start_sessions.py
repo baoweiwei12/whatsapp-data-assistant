@@ -21,5 +21,7 @@ data = {
 response = requests.post(
     f"{config.WHATSAPP_API_BASE_URL}/api/sessions/start", json=data
 )
-
-pprint(response.json())
+if response.status_code == 201:
+    print(f"whatsapp会话启动成功,状态:{response.json()['status']}")
+else:
+    print(f"whatsapp会话启动失败:{response.text}")
