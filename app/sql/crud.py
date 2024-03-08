@@ -90,6 +90,15 @@ class DeleteExpiredInfo(BaseModel):
     expiration_date: str
 
 
+def get_goods_information_by_detail(db: Session, detail: str):
+    db_goods_info = (
+        db.query(models.GoodsInformation)
+        .filter(models.GoodsInformation.detail == detail)
+        .first()
+    )
+    return db_goods_info
+
+
 def delete_expired_goods_information(db: Session, valid_days: int = 30):
 
     current_datetime = datetime.now()

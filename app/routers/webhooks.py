@@ -55,7 +55,7 @@ def proccess_message_task(message_from: str, message_body: str):
 
 def save_goods_info(message: Messages):
     db = SessionLocal()
-    logger.info("开始分析数据")
+    logger.info(f"{message.id}号消息开始分析数据")
     message_content_list = str(message.message_content).split("\n")
     max_lines = 30
     count = 0
@@ -71,13 +71,17 @@ def save_goods_info(message: Messages):
             if goods_info.is_include_commodity_information == True:
                 logger.info(f"{message.id}号消息第{count}轮分析包含商品信息")
                 for info in goods_info.information:
-                    crud.create_goods_information(
-                        db, info.detail, info.price, int(str(message.id))
+                    existing_info = crud.get_goods_information_by_detail(
+                        db, info.detail
                     )
+                    if existing_info is None:
+                        crud.create_goods_information(
+                            db, info.detail, info.price, int(str(message.id))
+                        )
             else:
                 logger.info(f"{message.id}号消息第{count}轮分析不包含商品信息")
     finally:
-        logger.info("分析数据结束")
+        logger.info(f"{message.id}号消息分析数据结束")
         db.close()
 
 

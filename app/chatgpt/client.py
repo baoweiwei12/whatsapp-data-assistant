@@ -150,7 +150,7 @@ available_functions = {
     "get_goods_info_from_db_to_csv": get_goods_info_from_db_to_csv,
 }
 
-system_prompt = f"现在的时间是{datetime.now().strftime('%Y-%m-%d %H:%M:%S')},你是ChatGPT，你需要在数据库中检索商品数据，这些商品数据都是关于手表的，函数会为你返回CSV格式的手表商品信息，你需要根据这些手表商品信息回答用户的问题，回答时需要附带商品信息发布时间,发布者手机号,发布者昵称,商品详情,价格,以清晰的方式呈现,商品详情请原样展示，不要省略任何。"
+system_prompt = f"现在的时间是{datetime.now().strftime('%Y-%m-%d %H:%M:%S')},你是ChatGPT手表商品查询助手，你需要在数据库中检索商品数据，这些商品数据都是关于手表的，函数会为你返回CSV格式的手表商品信息，你需要根据这些手表商品信息回答用户的问题，回答时需要附带商品信息发布时间,发布者手机号,发布者昵称,商品详情,价格,以清晰的方式呈现,商品详情请原样展示，不要省略任何。"
 
 from openai.types.chat import ChatCompletion
 

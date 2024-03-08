@@ -170,3 +170,179 @@ INFO:     2024-03-09 00:55:56,740   WhatsApp已停止运行
 INFO:     2024-03-09 01:02:08,634   WhatsApp正在启动......
 INFO:     2024-03-09 01:02:51,464   请使用手机扫描二维码
 INFO:     2024-03-09 01:03:42,814   WhatsApp正在运行中......
+INFO:     2024-03-09 01:28:30,272   BEGIN (implicit)
+INFO:     2024-03-09 01:28:30,274   INSERT INTO messages (timestamp, sender_phone_number, sender_display_name, message_type, message_content, is_group_message, group_id) VALUES (%s, %s, %s, %s, %s, %s, %s)
+INFO:     2024-03-09 01:28:30,274   [generated in 0.00069s] ('2024-03-09 01:28:07', '8618088887537', 'VGS', 'chat', 'Rm055有吗', 0, None)
+INFO:     2024-03-09 01:28:30,277   COMMIT
+INFO:     2024-03-09 01:28:30,396   BEGIN (implicit)
+INFO:     2024-03-09 01:28:30,398   SELECT messages.id, messages.timestamp, messages.sender_phone_number, messages.sender_display_name, messages.message_type, messages.message_content, messages.is_group_message, messages.group_id 
+FROM messages 
+WHERE messages.id = %s
+INFO:     2024-03-09 01:28:30,399   [generated in 0.00073s] (10,)
+INFO:     2024-03-09 01:28:30,400   收到个人消息 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:28:30,400   ROLLBACK
+INFO:     2024-03-09 01:28:35,414   消息发送成功 - 8618088887537@c.us - 我正在思考，请稍等！
+INFO:     2024-03-09 01:28:35,415   BEGIN (implicit)
+INFO:     2024-03-09 01:28:35,416   SELECT chat_history.id AS chat_history_id, chat_history.phone_number AS chat_history_phone_number, chat_history.messages AS chat_history_messages 
+FROM chat_history 
+WHERE chat_history.phone_number = %s 
+ LIMIT %s
+INFO:     2024-03-09 01:28:35,417   [generated in 0.00080s] ('8618088887537', 1)
+INFO:     2024-03-09 01:28:37,509   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:28:37,511   正在查询聊天记录 - 1 - None - None - RM055 - None - None
+INFO:     2024-03-09 01:28:37,514   BEGIN (implicit)
+INFO:     2024-03-09 01:28:37,517   SELECT goods_information.id AS goods_information_id, goods_information.detail AS goods_information_detail, goods_information.price AS goods_information_price, goods_information.message_id AS goods_information_message_id, messages_1.id AS messages_1_id, messages_1.timestamp AS messages_1_timestamp, messages_1.sender_phone_number AS messages_1_sender_phone_number, messages_1.sender_display_name AS messages_1_sender_display_name, messages_1.message_type AS messages_1_message_type, messages_1.message_content AS messages_1_message_content, messages_1.is_group_message AS messages_1_is_group_message, messages_1.group_id AS messages_1_group_id 
+FROM goods_information LEFT OUTER JOIN messages AS messages_1 ON messages_1.id = goods_information.message_id 
+WHERE lower(goods_information.detail) LIKE lower(%s) ORDER BY goods_information.id DESC 
+ LIMIT %s
+INFO:     2024-03-09 01:28:37,519   [generated in 0.00166s] ('%RM055%', 1)
+INFO:     2024-03-09 01:28:37,521   ROLLBACK
+INFO:     2024-03-09 01:28:39,885   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:28:39,934   消息发送成功 - 8618088887537@c.us - 抱歉，数据库中暂时没有关于RM055手表的信息。如果您对其他手表品牌或款式感兴趣，请告诉我，我会尽力为您找到相关信息。如果您有任何其他问题，也请随时告诉我，我会尽力帮助您。
+INFO:     2024-03-09 01:28:39,935   SELECT chat_history.id AS chat_history_id, chat_history.phone_number AS chat_history_phone_number, chat_history.messages AS chat_history_messages 
+FROM chat_history 
+WHERE chat_history.phone_number = %s 
+ LIMIT %s
+INFO:     2024-03-09 01:28:39,937   [cached since 4.521s ago] ('8618088887537', 1)
+INFO:     2024-03-09 01:28:39,940   UPDATE chat_history SET messages=%s WHERE chat_history.id = %s
+INFO:     2024-03-09 01:28:39,941   [generated in 0.00060s] ('"[{\\"role\\": \\"user\\", \\"content\\": \\"\\\\u4f60\\\\u5728\\\\u54ea\\"}, {\\"role\\": \\"assistant\\", \\"content\\": \\"\\\\u62b1\\\\u6b49\\\\u ... (7377 characters truncated) ... \\\u4e5f\\\\u8bf7\\\\u968f\\\\u65f6\\\\u544a\\\\u8bc9\\\\u6211\\\\uff0c\\\\u6211\\\\u4f1a\\\\u5c3d\\\\u529b\\\\u5e2e\\\\u52a9\\\\u60a8\\\\u3002\\"}]"', 1)
+INFO:     2024-03-09 01:28:39,943   COMMIT
+INFO:     2024-03-09 01:28:40,070   BEGIN (implicit)
+INFO:     2024-03-09 01:28:40,071   SELECT chat_history.id, chat_history.phone_number, chat_history.messages 
+FROM chat_history 
+WHERE chat_history.id = %s
+INFO:     2024-03-09 01:28:40,072   [generated in 0.00069s] (1,)
+INFO:     2024-03-09 01:28:40,073   ROLLBACK
+INFO:     2024-03-09 01:33:23,714   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:33:23,716   开始分析数据
+INFO:     2024-03-09 01:33:31,623   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:33:31,625   开始分析数据
+INFO:     2024-03-09 01:33:35,333   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:33:35,335   开始分析数据
+INFO:     2024-03-09 01:33:44,302   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:33:44,304   1号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:33:46,457   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:33:46,458   2号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:33:49,336   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:33:49,339   3号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:33:58,539   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:33:58,540   1号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:34:00,828   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:00,829   2号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:34:04,931   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:04,932   3号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:34:12,537   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:12,540   1号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:34:14,947   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:14,948   2号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:34:21,713   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:21,714   3号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:34:26,013   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:26,014   1号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:34:26,162   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:26,164   2号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:34:35,073   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:35,074   3号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:34:38,752   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:38,753   1号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:34:38,833   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:38,834   2号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:34:44,417   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:44,418   3号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:34:55,323   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:55,324   2号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:34:56,977   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:56,978   1号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:34:57,778   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:34:57,780   3号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:35:07,227   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:35:07,228   3号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:35:07,629   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:35:07,630   2号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:35:09,495   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:35:09,496   1号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:35:18,525   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:35:18,526   1号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:35:18,663   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:35:18,664   2号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:35:20,256   分析数据结束
+INFO:     2024-03-09 01:35:20,292   分析数据结束
+INFO:     2024-03-09 01:35:20,619   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:35:20,620   3号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:35:20,668   分析数据结束
+INFO:     2024-03-09 01:40:04,178   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:40:04,181   开始分析数据
+INFO:     2024-03-09 01:40:04,948   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:40:04,950   开始分析数据
+INFO:     2024-03-09 01:40:05,846   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:40:05,848   开始分析数据
+INFO:     2024-03-09 01:40:07,211   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:40:07,212   开始分析数据
+INFO:     2024-03-09 01:40:17,434   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:17,436   4号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:40:18,769   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:18,770   5号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:40:21,764   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:21,765   6号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:40:24,297   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:24,298   7号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:40:32,290   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:32,291   5号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:40:33,886   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:33,887   4号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:40:34,775   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:34,777   6号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:40:36,441   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:36,443   7号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:40:47,629   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:47,630   7号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:40:48,979   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:48,980   5号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:40:49,191   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:49,193   4号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:40:51,360   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:40:51,361   6号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:41:00,799   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:00,800   7号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:41:01,695   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:01,696   4号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:41:03,552   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:03,553   6号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:41:06,222   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:06,223   5号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:41:10,329   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:10,330   7号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:41:11,369   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:11,372   4号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:41:12,687   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:12,689   6号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:41:15,098   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:15,100   5号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:41:22,459   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:22,460   4号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:41:22,930   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:22,932   7号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:41:23,834   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:23,835   6号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:41:25,827   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:25,829   5号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:41:33,434   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:33,435   7号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:41:34,005   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:34,006   6号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:41:35,249   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:35,250   4号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:41:35,575   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:35,576   5号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:41:43,145   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:43,146   6号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:41:43,157   分析数据结束
+INFO:     2024-03-09 01:41:43,735   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:43,736   7号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:41:43,750   分析数据结束
+INFO:     2024-03-09 01:41:44,686   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:44,687   5号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:41:44,698   分析数据结束
+INFO:     2024-03-09 01:41:44,995   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:41:44,997   4号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:41:45,007   分析数据结束
