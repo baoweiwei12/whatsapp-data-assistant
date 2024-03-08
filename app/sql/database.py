@@ -1,13 +1,12 @@
 from urllib.parse import quote_plus
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, URL
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app import config
+import config
 
 username = config.SQL_NAME
 password = config.SQL_PSWD
-# hostname = config.SQL_HOST
-hostname = "47.99.70.58"
+hostname = config.SQL_HOST
 database_name = config.SQL_DB_NAME
 # 对用户名和密码进行 URL 编码
 encoded_username = quote_plus(username)

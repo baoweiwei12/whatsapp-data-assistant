@@ -4,7 +4,7 @@ from typing import List
 from openai import OpenAI
 import json
 from pydantic import BaseModel
-from app import config
+import config
 from app.sql import crud
 from app.sql.database import SessionLocal
 import csv

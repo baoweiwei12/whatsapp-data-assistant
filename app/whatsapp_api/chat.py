@@ -1,6 +1,6 @@
 import logging
 import requests
-from app import config
+import config
 
 logger = logging.getLogger("whatsapp")
 

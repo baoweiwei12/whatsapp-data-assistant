@@ -1,12 +1,10 @@
 import logging
-from dotenv import load_dotenv
 from fastapi import FastAPI
-from app.routers import webhooks
+from app.routers import webhooks, whatsapp_control
 from fastapi.middleware.cors import CORSMiddleware
 
-load_dotenv()
 
-app = FastAPI()
+app = FastAPI(title="WhatsAppBot")
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,6 +13,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(whatsapp_control.router, tags=["WhatsApp"])
 
 app.include_router(webhooks.router, tags=["webhooks"])
 
