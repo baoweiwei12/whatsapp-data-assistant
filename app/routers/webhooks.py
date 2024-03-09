@@ -1,10 +1,9 @@
 from datetime import datetime
-import io
+
 import json
 import logging
 from fastapi import APIRouter, BackgroundTasks, Depends
 from pydantic import BaseModel
-import requests
 from sqlalchemy.orm import Session
 import config
 from app.chatgpt.client import analyze_text, run_conversation
@@ -14,7 +13,7 @@ from app.sql import crud
 from app.sql.database import SessionLocal
 from app.sql.models import Messages
 from app.whatsapp_api.chat import send_text
-from PIL import Image
+
 
 router = APIRouter()
 logger = logging.getLogger("whatsapp")
@@ -117,11 +116,6 @@ def process_staring_status():
 
 def process_scan_qr_code_status():
     logger.info("请使用手机扫描二维码")
-    response = requests.get(f"{config.WHATSAPP_API_BASE_URL}/api/default/auth/qr")
-    if response.status_code == 200:
-        image_stream = io.BytesIO(response.content)
-    image = Image.open(image_stream)
-    image.show()
 
 
 def process_working_status():

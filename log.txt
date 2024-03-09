@@ -346,3 +346,99 @@ INFO:     2024-03-09 01:41:44,698   分析数据结束
 INFO:     2024-03-09 01:41:44,995   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
 INFO:     2024-03-09 01:41:44,997   4号消息第8轮分析包含商品信息
 INFO:     2024-03-09 01:41:45,007   分析数据结束
+INFO:     2024-03-09 01:51:53,511   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:51:53,512   8号消息开始分析数据
+INFO:     2024-03-09 01:51:54,184   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:51:54,186   9号消息开始分析数据
+INFO:     2024-03-09 01:51:55,218   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 01:51:55,220   10号消息开始分析数据
+INFO:     2024-03-09 01:52:05,463   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:05,465   8号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:52:05,517   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:05,519   9号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:52:10,602   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:10,603   10号消息第1轮分析包含商品信息
+INFO:     2024-03-09 01:52:21,386   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:21,387   8号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:52:22,199   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:22,200   9号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:52:26,987   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:26,988   10号消息第2轮分析包含商品信息
+INFO:     2024-03-09 01:52:35,210   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:35,211   8号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:52:35,667   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:35,668   9号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:52:38,888   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:38,889   10号消息第3轮分析包含商品信息
+INFO:     2024-03-09 01:52:48,195   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:48,196   8号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:52:50,425   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:50,427   9号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:52:50,577   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:50,578   10号消息第4轮分析包含商品信息
+INFO:     2024-03-09 01:52:58,534   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:58,535   8号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:52:59,115   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:52:59,116   9号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:53:00,656   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:00,657   10号消息第5轮分析包含商品信息
+INFO:     2024-03-09 01:53:12,666   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:12,667   8号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:53:15,148   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:15,149   9号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:53:17,629   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:17,630   10号消息第6轮分析包含商品信息
+INFO:     2024-03-09 01:53:24,776   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:24,777   9号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:53:26,244   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:26,245   8号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:53:27,620   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:27,621   10号消息第7轮分析包含商品信息
+INFO:     2024-03-09 01:53:34,030   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:34,031   9号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:53:34,489   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:34,490   10号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:53:35,568   9号消息分析数据结束
+INFO:     2024-03-09 01:53:35,598   10号消息分析数据结束
+INFO:     2024-03-09 01:53:35,813   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 01:53:35,815   8号消息第8轮分析包含商品信息
+INFO:     2024-03-09 01:53:35,879   8号消息分析数据结束
+INFO:     2024-03-09 02:01:16,874   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 02:01:16,876   11号消息开始分析数据
+INFO:     2024-03-09 02:01:29,704   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:01:29,705   11号消息第1轮分析包含商品信息
+INFO:     2024-03-09 02:01:52,863   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:01:52,865   11号消息第2轮分析包含商品信息
+INFO:     2024-03-09 02:02:11,279   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:02:11,280   11号消息第3轮分析包含商品信息
+INFO:     2024-03-09 02:02:24,037   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:02:24,038   11号消息第4轮分析包含商品信息
+INFO:     2024-03-09 02:02:38,202   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:02:38,203   11号消息第5轮分析包含商品信息
+INFO:     2024-03-09 02:02:40,528   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:02:40,529   11号消息第6轮分析不包含商品信息
+INFO:     2024-03-09 02:02:49,065   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:02:49,066   11号消息第7轮分析包含商品信息
+INFO:     2024-03-09 02:03:04,510   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:03:04,511   11号消息第8轮分析包含商品信息
+INFO:     2024-03-09 02:03:05,502   11号消息分析数据结束
+INFO:     2024-03-09 02:06:55,928   收到群组消息 - 群组ID: 120363244472371330 - 发送人: 8618088887537 VGS 
+INFO:     2024-03-09 02:06:55,929   12号消息开始分析数据
+INFO:     2024-03-09 02:07:10,372   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:07:10,373   12号消息第1轮分析包含商品信息
+INFO:     2024-03-09 02:07:21,939   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:07:21,941   12号消息第2轮分析包含商品信息
+INFO:     2024-03-09 02:07:34,435   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:07:34,436   12号消息第3轮分析包含商品信息
+INFO:     2024-03-09 02:07:47,492   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:07:47,494   12号消息第4轮分析包含商品信息
+INFO:     2024-03-09 02:07:55,911   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:07:55,912   12号消息第5轮分析包含商品信息
+INFO:     2024-03-09 02:08:06,352   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:08:06,354   12号消息第6轮分析包含商品信息
+INFO:     2024-03-09 02:08:16,927   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:08:16,929   12号消息第7轮分析包含商品信息
+INFO:     2024-03-09 02:08:16,971   Retrying request to /chat/completions in 0.950063 seconds
+INFO:     2024-03-09 02:08:27,080   HTTP Request: POST https://one.aiskt.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:     2024-03-09 02:08:27,081   12号消息第8轮分析包含商品信息
+INFO:     2024-03-09 02:08:27,092   12号消息分析数据结束
