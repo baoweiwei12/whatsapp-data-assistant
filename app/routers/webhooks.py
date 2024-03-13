@@ -1,18 +1,13 @@
-from datetime import datetime
 
-import json
+from datetime import datetime
 import logging
 from fastapi import APIRouter, BackgroundTasks, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+from app.task import proccess_message_task, save_goods_info,command_dict
 import config
-from app.chatgpt.client import analyze_text, run_conversation
-from app.chatgpt.tokens import limit_tokens_in_messages
 from app.dependencies import get_db
 from app.sql import crud
-from app.sql.database import SessionLocal
-from app.sql.models import Messages
-from app.whatsapp_api.chat import send_text
 
 
 router = APIRouter()
@@ -23,91 +18,6 @@ class WhatsappEvent(BaseModel):
     event: str
     session: str
     payload: dict
-
-
-def proccess_message_task(message_from: str, message_body: str):
-    db = SessionLocal()
-    phone_number = message_from.split("@")[0]
-    try:
-        send_text(message_from, "我正在思考，请稍等！")
-        message = {"role": "user", "content": message_body}
-        db_chat_history = crud.get_chat_history_by_number(db, phone_number)
-        if db_chat_history:
-            messages: list[dict] = json.loads(str(db_chat_history.messages))
-            messages.append(message)
-        else:
-            messages: list[dict] = []
-            messages.append(message)
-            crud.creat_chat_history(db, phone_number, messages)
-        messages = limit_tokens_in_messages(messages, 4096 * 2)
-        res = run_conversation(messages)
-        chatgpt_reply = res.chat_completion.choices[0].message.content
-        if chatgpt_reply:
-            send_text(message_from, chatgpt_reply)
-            messages.append({"role": "assistant", "content": chatgpt_reply})
-        if res.func_data:
-            send_text(message_from, res.func_data)
-        crud.update_chat_history(db, phone_number, messages)
-    finally:
-        db.close()
-
-
-def save_goods_info(message: Messages):
-    db = SessionLocal()
-    logger.info(f"{message.id}号消息开始分析数据")
-    message_content_list = str(message.message_content).split("\n")
-    max_lines = 30
-    count = 0
-    try:
-        for index in range(0, len(message_content_list), max_lines):
-            count = count + 1
-            chunk_list = message_content_list[
-                index : min(index + max_lines, len(message_content_list))
-            ]
-            chunk_text = "\n".join(chunk_list)
-            goods_info = analyze_text(chunk_text)
-
-            if goods_info.is_include_commodity_information == True:
-                logger.info(f"{message.id}号消息第{count}轮分析包含商品信息")
-                for info in goods_info.information:
-                    existing_info = crud.get_goods_information_by_detail(
-                        db, info.detail
-                    )
-                    if existing_info is None:
-                        crud.create_goods_information(
-                            db, info.detail, info.price, int(str(message.id))
-                        )
-            else:
-                logger.info(f"{message.id}号消息第{count}轮分析不包含商品信息")
-    finally:
-        logger.info(f"{message.id}号消息分析数据结束")
-        db.close()
-
-
-def delate_chat_history_task(message_from: str, message_body: str):
-    db = SessionLocal()
-    phone_number = message_from.split("@")[0]
-    messages = []
-    try:
-        crud.update_chat_history(db, phone_number, messages)
-        send_text(message_from, "聊天记录已删除。")
-    finally:
-        db.close()
-
-
-def delete_expired_information(message_from: str, message_body: str):
-    db = SessionLocal()
-    try:
-        res = crud.delete_expired_goods_information(db, 30)
-        send_text(message_from, f"已删除{res.expiration_date}前的{res.count}条信息。")
-    finally:
-        db.close()
-
-
-command_dict = {
-    "#删除聊天记录": delate_chat_history_task,
-    "#删除过期信息": delete_expired_information,
-}
 
 
 def process_staring_status():
@@ -157,7 +67,7 @@ def whatsapp_webhook(
     elif event_type == "message":
         try:
             event_data = whatsapp_event.payload["_data"]
-            message_body = str(event_data["body"])
+            message_body = str(whatsapp_event.payload["body"])
             message_type = str(event_data["type"])
             message_time = datetime.fromtimestamp(int(event_data["t"])).strftime(
                 "%Y-%m-%d %H:%M:%S"
@@ -169,7 +79,7 @@ def whatsapp_webhook(
                 new_message = crud.create_whatsapp_message(
                     db=db,
                     timestamp=message_time,
-                    sender_phone_number=message_author.split("@")[0],
+                    sender_phone_number=f"+{message_author.split('@')[0]}",
                     sender_display_name=message_notify_name,
                     message_type=message_type,
                     message_content=message_body,
@@ -185,7 +95,7 @@ def whatsapp_webhook(
                 crud.create_whatsapp_message(
                     db=db,
                     timestamp=message_time,
-                    sender_phone_number=message_from.split("@")[0],
+                    sender_phone_number=f"+{message_from.split('@')[0]}",
                     sender_display_name=message_notify_name,
                     message_type=message_type,
                     message_content=message_body,

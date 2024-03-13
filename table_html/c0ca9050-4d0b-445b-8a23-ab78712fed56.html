@@ -1,0 +1,77 @@
+
+    <style>
+    table {
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    th, td {
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #f2f2f2;
+    }
+
+    .header {
+    background-color: #333;
+    color: white;
+    }
+
+    @media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+    }
+    }
+    </style>
+    <table>
+  <tr class='header'>
+    <th>商品信息发布时间</th>
+    <th>发布者手机号</th>
+    <th>发布者昵称</th>
+    <th>商品详情</th>
+    <th>价格</th>
+  </tr>
+  <tr>
+    <td>2024-03-11 16:51:27</td>
+    <td>+923362287895</td>
+    <td>LWC Luxury watch collection ( Business )</td>
+    <td>W1529856 $80500 -22 2/2024</td>
+    <td>80500</td>
+  </tr>
+  <tr>
+    <td>2024-03-11 16:21:23</td>
+    <td>+85264117065</td>
+    <td>Michelle</td>
+    <td>W1556240 $180000 -40% 2/2022</td>
+    <td>180000</td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+</table>

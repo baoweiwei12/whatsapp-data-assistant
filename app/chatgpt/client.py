@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 from typing import List
+import httpx
 from openai import OpenAI
 import json
 from pydantic import BaseModel
@@ -10,11 +11,15 @@ from app.sql.database import SessionLocal
 import csv
 import io
 import base64
-
 from app.whatsapp_api.chat import send_file
 
 logger = logging.getLogger("whatsapp")
-client = OpenAI(api_key=config.OPENAI_API_KEY, base_url=config.OPENAI_BASE_URL)
+if config.HTTP_PROXY is not None:
+    # Clash 代理地址
+    custom_http_client = httpx.Client(timeout=10.0, proxies=config.HTTP_PROXY)
+else:
+    custom_http_client = None
+client = OpenAI(api_key=config.OPENAI_API_KEY, base_url=config.OPENAI_BASE_URL,http_client=custom_http_client)
 
 
 class GoodsData(BaseModel):

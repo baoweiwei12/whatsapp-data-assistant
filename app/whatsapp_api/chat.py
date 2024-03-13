@@ -9,7 +9,7 @@ def send_text(chatId: str, text: str, session: str = "default"):
     data = {"chatId": chatId, "text": text, "session": session}
     response = requests.post(f"{config.WHATSAPP_API_BASE_URL}/api/sendText", data=data)
     if response.status_code == 201:
-        logger.info(f"消息发送成功 - {chatId} - {text}")
+        logger.info(f"消息发送成功 - {chatId} ")
         return True
     logger.warning(f"消息发送失败 - {response.text}")
     return False
