@@ -8,7 +8,7 @@ SQL_DB_NAME = "whatsapp"  # SQL数据库名
 
 
 # OpenAI配置
-OPENAI_API_KEY = "sk-FPiS-2Zzj5AMLaqRbFc453572193d476e85B7F2F82e24Ac50"  # OpenAI API密钥
+# OPENAI_API_KEY = ""  # OpenAI API密钥
 OPENAI_BASE_URL = "http://180.184.181.166:3000/v1"  # OpenAI API基础地址
 
 OPENAI_MODEL = "gpt-3.5-turbo-0125"  # 使用的OpenAI模型
@@ -25,5 +25,5 @@ USER_PHONE_NUMBER = ["8618088887537", "85292988566", "8617340619236","8619871547
 HTTP_PROXY = None
 
 # 其他密钥配置
-SECRET_KEY = "PjhdfQHOIFE2FOWI"  # 应用密钥
-FILE_URL = "https://api.gtalk.fun/file-data"  # 文件下载URL基础地址
+# SECRET_KEY = ""  # 应用密钥
+FILE_URL = "https://api.gtalk.fun/file-data
