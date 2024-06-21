@@ -18,16 +18,6 @@ app.add_middleware(
 
 app.include_router(webhooks.router, tags=["webhooks"])
 app.include_router(html.router, tags=["html"])
+app.include_router(whatsapp_control.router, tags=["WhatsApp"])
 
-# 配置全局的logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s:     %(asctime)s   %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("log.txt", encoding="utf-8"),
-    ],
-)
 
-# 使用logger实例
-logger = logging.getLogger("whatsapp")

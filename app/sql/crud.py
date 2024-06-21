@@ -45,25 +45,46 @@ def get_group_messages(
     sender_phone_number: str | None = None,
     sender_display_name: str | None = None,
 ):
+    """
+    从数据库中获取群组消息列表。
+
+    参数:
+    - db: Session 类型，数据库会话实例。
+    - limit: int 类型，限制返回的消息数量，默认为20。
+    - start_timestamp: str 类型或 None，查询开始的时间戳，默认为 None。
+    - end_timestamp: str 类型或 None，查询结束的时间戳，默认为 None。
+    - search_content: str 类型或 None，根据消息内容搜索的消息关键字，默认为 None。
+    - sender_phone_number: str 类型或 None，根据发送者手机号码筛选，默认为 None。
+    - sender_display_name: str 类型或 None，根据发送者显示名称筛选，默认为 None。
+    
+    返回值:
+    - group_messages: 返回符合筛选条件的群组消息列表。
+    """
+    # 基本查询，只查询群组消息
     query = db.query(models.Messages).filter(models.Messages.is_group_message == True)
 
+    # 根据时间范围筛选
     if start_timestamp:
         query = query.filter(models.Messages.timestamp >= start_timestamp)
-
+    
     if end_timestamp:
         query = query.filter(models.Messages.timestamp <= end_timestamp)
 
+    # 根据消息内容搜索
     if search_content:
         query = query.filter(
             models.Messages.message_content.ilike(f"%{search_content}%")
         )
 
+    # 根据发送者手机号码筛选
     if sender_phone_number:
         query = query.filter(models.Messages.sender_phone_number == sender_phone_number)
 
+    # 根据发送者显示名称筛选
     if sender_display_name:
         query = query.filter(models.Messages.sender_display_name == sender_display_name)
 
+    # 排序并限制返回的结果数量
     group_messages = query.order_by(desc(models.Messages.id)).limit(limit).all()
 
     return group_messages
@@ -216,6 +237,19 @@ def update_chat_history(db: Session, phone_number: str, messages: list[dict]):
             db.commit()
             db.refresh(new_chat_history)
             return new_chat_history
+    except Exception as e:
+        db.rollback()
+        raise e
+
+def creat_error_message_record(db: Session, error_message_id: int, error_reason: str):
+    try:
+        new_error_message_record = models.ErrorMessageRecords(
+            error_message=error_message_id, error_reason=error_reason
+        )
+        db.add(new_error_message_record)
+        db.commit()
+        db.refresh(new_error_message_record)
+        return new_error_message_record
     except Exception as e:
         db.rollback()
         raise e

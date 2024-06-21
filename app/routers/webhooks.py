@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import logging
 from fastapi import APIRouter, BackgroundTasks, Depends
@@ -8,38 +7,44 @@ from app.task import proccess_message_task, save_goods_info,command_dict
 import config
 from app.dependencies import get_db
 from app.sql import crud
-
+from app.logger import logger
 
 router = APIRouter()
-logger = logging.getLogger("whatsapp")
+
 
 
 class WhatsappEvent(BaseModel):
-    event: str
-    session: str
-    payload: dict
+    event: str  # 事件类型
+    session: str  # 会话标识
+    payload: dict  # 事件负载数据
 
 
 def process_staring_status():
+    """处理WhatsApp启动状态"""
     logger.info("WhatsApp正在启动......")
 
 
 def process_scan_qr_code_status():
+    """处理扫描二维码状态"""
     logger.info("请使用手机扫描二维码")
 
 
 def process_working_status():
+    """处理WhatsApp运行中状态"""
     logger.info("WhatsApp正在运行中......")
 
 
 def process_stopped_status():
+    """处理WhatsApp停止运行状态"""
     logger.info("WhatsApp已停止运行")
 
 
 def process_failed_status():
+    """处理失败状态"""
     logger.info("失败")
 
 
+# 状态与处理函数映射字典
 STATUS_FUNC_MAP = {
     "STARTING": process_staring_status,
     "SCAN_QR_CODE": process_scan_qr_code_status,
@@ -55,9 +60,17 @@ def whatsapp_webhook(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
+    """
+    处理WhatsApp Webhook请求
 
+    :param whatsapp_event: 包含WhatsApp事件信息的模型实例
+    :param background_tasks: 用于异步执行任务的背景任务对象
+    :param db: 数据库会话实例，依赖注入获得
+    :return: 简单响应字符串 "OK"
+    """
     event_type = whatsapp_event.event
     if event_type == "session.status":
+        # 处理会话状态事件
         try:
             STATUS_FUNC_MAP[whatsapp_event.payload["status"]]()
         except KeyError as e:
@@ -65,6 +78,7 @@ def whatsapp_webhook(
             logger.info(whatsapp_event.payload)
 
     elif event_type == "message":
+        # 处理消息事件
         try:
             event_data = whatsapp_event.payload["_data"]
             message_body = str(whatsapp_event.payload["body"])
@@ -75,6 +89,7 @@ def whatsapp_webhook(
             message_notify_name = str(event_data["notifyName"])
             message_from = str(event_data["from"])
             if message_from.endswith("@g.us"):
+                # 处理群组消息
                 message_author = str(event_data["author"])
                 new_message = crud.create_whatsapp_message(
                     db=db,
@@ -92,6 +107,7 @@ def whatsapp_webhook(
                 background_tasks.add_task(save_goods_info, new_message)
 
             else:
+                # 处理个人消息
                 crud.create_whatsapp_message(
                     db=db,
                     timestamp=message_time,
@@ -105,7 +121,7 @@ def whatsapp_webhook(
                     f"收到个人消息 - 发送人: {message_from.split('@')[0]} {message_notify_name} "
                 )
                 if message_from.split("@")[0] in config.USER_PHONE_NUMBER:
-
+                    # 处理针对特定用户的命令
                     for command, task in command_dict.items():
                         if message_body.startswith(command):
                             background_tasks.add_task(task, message_from, message_body)

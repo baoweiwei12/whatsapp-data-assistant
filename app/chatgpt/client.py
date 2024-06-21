@@ -12,14 +12,14 @@ import csv
 import io
 import base64
 from app.whatsapp_api.chat import send_file
+from app.logger import logger
 
-logger = logging.getLogger("whatsapp")
 if config.HTTP_PROXY is not None:
     # Clash 代理地址
-    custom_http_client = httpx.Client(timeout=10.0, proxies=config.HTTP_PROXY)
+    custom_http_client = httpx.Client(timeout=100.0, proxies=config.HTTP_PROXY)
 else:
     custom_http_client = None
-client = OpenAI(api_key=config.OPENAI_API_KEY, base_url=config.OPENAI_BASE_URL,http_client=custom_http_client)
+client = OpenAI(api_key=config.OPENAI_API_KEY, base_url=config.OPENAI_BASE_URL,http_client=custom_http_client,max_retries=2)
 
 
 class GoodsData(BaseModel):
@@ -166,26 +166,44 @@ class RunConResponese(BaseModel):
 
 
 def run_conversation(messages: list):
+    """
+    运行对话流程。
+    
+    参数:
+    - messages: 一个包含对话内容的列表，每条对话作为一个字典，字典包含"role"和"content"键值对。
+    
+    返回值:
+    - RunConResponese对象，包含函数响应数据和聊天完成信息。
+    """
+    
+    # 初始化OpenAI模型
     model = config.OPENAI_MODEL
+    # 为对话添加系统提示
     messages = [{"role": "system", "content": system_prompt}] + messages
+    # 向OpenAI发送聊天请求并获取响应
     response = client.chat.completions.create(
         model=model,
         messages=messages,
         tools=tools,  # type: ignore
         tool_choice="auto",
     )
+    # 解析响应消息
     response_message = response.choices[0].message
     tool_calls = response_message.tool_calls
 
     if tool_calls:
+        # 如果有工具调用，将响应消息添加到对话中
         messages.append(response_message)
 
+        # 遍历并处理每个工具调用
         for tool_call in tool_calls:
             function_name = tool_call.function.name
             function_to_call = available_functions[function_name]
             function_args = json.loads(tool_call.function.arguments)
+            # 调用相应的函数，并处理返回的结果
             function_response = function_to_call(**function_args)
             if function_response.is_matched_info:
+                # 如果返回信息匹配，添加商品数据到对话中
                 messages.append(
                     {
                         "tool_call_id": tool_call.id,
@@ -195,6 +213,7 @@ def run_conversation(messages: list):
                     }
                 )
             else:
+                # 否则，添加错误信息到对话中
                 messages.append(
                     {
                         "tool_call_id": tool_call.id,
@@ -203,15 +222,18 @@ def run_conversation(messages: list):
                         "content": function_response.message,
                     }
                 )
+        # 发送包含工具调用结果的对话请求，并获取二次响应
         second_response = client.chat.completions.create(
             model=model,
             messages=messages,
         )
+        # 返回函数数据和二次聊天响应
         return RunConResponese(
             func_data=function_response.goods_data.csv_data,
             chat_completion=second_response,
         )
     else:
+        # 如果没有工具调用，直接返回原始响应
         return RunConResponese(func_data=None, chat_completion=response)
 
 
@@ -232,40 +254,40 @@ class GoodsInfo(BaseModel):
 def analyze_text(text: str):
     model = "gpt-3.5-turbo-0125"
     system_prompt = """
-作为一个助手，你的任务是从消息中提取商品信息。如果消息中不包含商品信息，请将 "is_include_commodity_information" 设置为 false，并确保 "information" 属性为空数组。如果消息中包含商品信息，请提取所有商品信息并放入 "information" 数组中。务必筛选出所有可能的商品信息，并尽可能多地提取商品信息,有些商品可能只有折扣没有价格，你也需要提取出来，设置price为null即可。以下是需要返回的 JSON 消息示例。注意：不要漏掉任何一条可能的商品信息。
+    作为一个助手，你的任务是从消息中提取商品信息。如果消息中不包含商品信息，请将 "is_include_commodity_information" 设置为 false，并确保 "information" 属性为空数组。如果消息中包含商品信息，请提取所有商品信息并放入 "information" 数组中。务必筛选出所有可能的商品信息，并尽可能多地提取商品信息,有些商品可能只有折扣没有价格，你也需要提取出来，设置price为null即可。以下是需要返回的 JSON 消息示例。注意：不要漏掉任何一条可能的商品信息。
 
-<json消息示例>
-{
-    "is_include_commodity_information": true,
-    "information": [
-        {
-            "detail": "4962/200R $208000 1/2024",
-            "price":208000
-        },
-        {
-            "detail": "126720vtnr jub n2🏷$141000",
-            "price": 141000
-        },
-        {
-            "detail": "5100-1140-52A - 38%",
-            "price": null
-        },
-        {
-            "detail": "42410402001003 - 38%",
-            "price": null
-        },
-        {
-            "detail": "311.92.44.30.01.001 $84,600 -8%",
-            "price": 84600
-        },
-        {
-            "detail": "116244 Rhodium Floral Motif Both Tag Warranty Card 2014 $77,800",
-            "price": 77800
-        }
-    ]
-}
-</json消息示例>
-"""
+    <json消息示例>
+    {
+        "is_include_commodity_information": true,
+        "information": [
+            {
+                "detail": "4962/200R $208000 1/2024",
+                "price":208000
+            },
+            {
+                "detail": "126720vtnr jub n2🏷$141000",
+                "price": 141000
+            },
+            {
+                "detail": "5100-1140-52A - 38%",
+                "price": null
+            },
+            {
+                "detail": "42410402001003 - 38%",
+                "price": null
+            },
+            {
+                "detail": "311.92.44.30.01.001 $84,600 -8%",
+                "price": 84600
+            },
+            {
+                "detail": "116244 Rhodium Floral Motif Both Tag Warranty Card 2014 $77,800",
+                "price": 77800
+            }
+        ]
+    }
+    </json消息示例>
+    """
 
     response = client.chat.completions.create(
         model=model,
@@ -283,3 +305,4 @@ def analyze_text(text: str):
     message_dict = json.loads(json_message)
 
     return GoodsInfo(**message_dict)
+
